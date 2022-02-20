@@ -22,29 +22,29 @@
     <h2>Find city</h2>
 
     <form novalidate autocomplete="off" class="find-city">
-      <input type="text" name="search" id="search" placeholder="np. Wrocław"/>
+      <input type="text" name="search" id="search" placeholder="eg. New York"/>
       <button type="submit"><i class="material-icons">search</i></button>
     </form>
     <div class="search-error"></div>
   </div>
 
   <div class="module module__weather">
-    <button class="btn btn--icon btn--close"><i class="material-icons">close</i></button>
+    <button class="btn btn--icon btn--close" id="delete-city"><i class="material-icons">close</i></button>
 
     <div class="weather">
-      <div class="weather__icon"><img src="assets/icons/partly-cloudy-day.svg"/></div>
+      <div class="weather__icon"><img src=""/></div>
 
       <div class="weather__info">
         <div class="city">
-          <span class="city__name">City name</span> <span class="btn btn--icon"><i class="material-icons">edit</i></span>
+          <span class="city__name"></span> <span class="btn btn--icon"><i class="material-icons">edit</i></span>
         </div>
-        <div class="temperature"><span class="temperature__value">16.5</span>&deg;C</div>
+        <div class="temperature"><span id="current_temperature_value" class="temperature__value"></span>&deg;C</div>
       </div>
 
       <ul class="weather__details">
-        <li><img src="assets/icons/pressure.svg"/> <span class="pressure__value">998 hPa</span></li>
-        <li><img src="assets/icons/humidity.svg"/> <span class="humidity__value">45%</span></li>
-        <li><img src="assets/icons/wind-speed.svg"/> <span class="wind-speed__value">5.5 m/s</span></li>
+        <li><img src="assets/icons/pressure.svg"/> <span class="pressure__value"></span></li>
+        <li><img src="assets/icons/humidity.svg"/> <span class="humidity__value"></span></li>
+        <li><img src="assets/icons/wind-speed.svg"/> <span class="wind-speed__value"></span></li>
       </ul>
 
       <ul class="weather__forecast">
