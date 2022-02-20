@@ -38,5 +38,16 @@ document.addEventListener('DOMContentLoaded', event => {
 
         })
 
+    let click_counter = 0
+    add_city_button.addEventListener('click', event => {
+        click_counter += 1
+        if (click_counter % 2 === 0){
+            document.querySelector('.module__form').setAttribute('hidden', true)
+        }
+        else{
+            document.querySelector('.module__form').removeAttribute('hidden')
+        }
+    })
+
 
 })
