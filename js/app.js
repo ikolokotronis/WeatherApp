@@ -49,5 +49,9 @@ document.addEventListener('DOMContentLoaded', event => {
         }
     })
 
+    remove_city_button.addEventListener('click', event => {
+        event.target.parentElement.parentElement.remove()
+    })
+
 
 })
