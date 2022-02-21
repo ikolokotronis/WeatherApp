@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', event => {
         
                     <div class="weather__info">
                         <div class="city">
-                            <span class="city__name">${cityName}</span> <span class="btn btn--icon"><i class="material-icons">edit</i></span>
+                            <span class="city__name">${cityName}</span>
                         </div>
                         <div class="temperature"><span id="current_temperature_value" class="temperature__value">${currentTemp}</span>&deg;C</div>
                     </div>
