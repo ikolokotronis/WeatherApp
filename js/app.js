@@ -8,11 +8,14 @@ const currentPressureQuery = document.querySelector('.pressure__value');
 const currentHumidityQuery = document.querySelector('.humidity__value');
 const currentWindSpeedQuery = document.querySelector('.wind-speed__value');
 const weatherIconQuery = document.querySelector('.weather__icon').firstElementChild;
+
 const dayQueries = document.querySelectorAll('.validDay');
 const dayTempQueries = document.querySelectorAll('.validDayTemp');
 
 const findCityForm = document.querySelector('.find-city');
 const findCityFormContainer = document.querySelector('.module__form');
+
+const appContainer = document.querySelector('#app');
 
 const addCityButton = document.querySelector('#add-city');
 const closeFormButton = document.querySelector('#close-form');
@@ -24,7 +27,7 @@ async function get_current_weather(city){
         return await response.json();
     }
     catch(error){
-        console.log(error)
+        console.log(error);
     }
 }
 
@@ -73,7 +76,8 @@ document.addEventListener('DOMContentLoaded', event => {
                      data.current.condition.text.toLowerCase().includes("drizzle")){
                 weatherIcon = "assets/icons/rain.svg";
             }
-            else if (data.current.condition.text.toLowerCase().includes("snow")){
+            else if (data.current.condition.text.toLowerCase().includes("snow") ||
+                     data.current.condition.text.toLowerCase().includes("blizzard")){
                 weatherIcon = "assets/icons/snow.svg";
             }
             else if (data.current.condition.text.toLowerCase().includes("thunder")){
@@ -81,9 +85,6 @@ document.addEventListener('DOMContentLoaded', event => {
             }
             else if (data.current.condition.text.toLowerCase().includes("sleet")){
                 weatherIcon = "assets/icons/sleet.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("blizzard")){
-                weatherIcon = "assets/icons/snow.svg";
             }
 
             weatherIconQuery.src = weatherIcon;
@@ -142,10 +143,11 @@ document.addEventListener('DOMContentLoaded', event => {
                     day.nextElementSibling.src = "assets/icons/cloudy.svg";
                 }
                 else if (day.nextElementSibling.alt.toLowerCase().includes("rain") ||
-                    day.nextElementSibling.alt.toLowerCase().includes("drizzle")){
+                         day.nextElementSibling.alt.toLowerCase().includes("drizzle")){
                     day.nextElementSibling.src = "assets/icons/rain.svg";
                 }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("snow")){
+                else if (day.nextElementSibling.alt.toLowerCase().includes("snow") ||
+                         day.nextElementSibling.alt.toLowerCase().includes("blizzard")){
                     day.nextElementSibling.src = "assets/icons/snow.svg";
                 }
                 else if (day.nextElementSibling.alt.toLowerCase().includes("thunder")){
@@ -154,14 +156,11 @@ document.addEventListener('DOMContentLoaded', event => {
                 else if (day.nextElementSibling.alt.toLowerCase().includes("sleet")){
                     day.nextElementSibling.src = "assets/icons/sleet.svg";
                 }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("blizzard")){
-                    day.nextElementSibling.src = "assets/icons/snow.svg";
-                }
 
             });
 
         }).catch(error => {
-            console.log(error)
+            console.log(error);
     });
 
     findCityForm.addEventListener('submit', event => {
@@ -171,8 +170,6 @@ document.addEventListener('DOMContentLoaded', event => {
         event.preventDefault();
 
         const searchInputValue = document.querySelector('#search').value;
-
-        const appContainer = document.querySelector('#app');
 
         get_current_weather(searchInputValue)
             .then(data => {
@@ -214,7 +211,8 @@ document.addEventListener('DOMContentLoaded', event => {
                      data.current.condition.text.toLowerCase().includes("drizzle")){
                 weatherIcon = "assets/icons/rain.svg";
             }
-            else if (data.current.condition.text.toLowerCase().includes("snow")){
+            else if (data.current.condition.text.toLowerCase().includes("snow") ||
+                     data.current.condition.text.toLowerCase().includes("blizzard")){
                 weatherIcon = "assets/icons/snow.svg";
             }
             else if (data.current.condition.text.toLowerCase().includes("thunder")){
@@ -222,9 +220,6 @@ document.addEventListener('DOMContentLoaded', event => {
             }
             else if (data.current.condition.text.toLowerCase().includes("sleet")){
                 weatherIcon = "assets/icons/sleet.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("blizzard")){
-                weatherIcon = "assets/icons/snow.svg";
             }
 
             let dayName = [];
@@ -277,7 +272,8 @@ document.addEventListener('DOMContentLoaded', event => {
                          element.toLowerCase().includes("drizzle")){
                     futureWeatherIcons.push("../assets/icons/rain.svg");
                 }
-                else if (element.toLowerCase().includes("snow")){
+                else if (element.toLowerCase().includes("snow") ||
+                         element.toLowerCase().includes("blizzard")){
                     futureWeatherIcons.push("../assets/icons/snow.svg");
                 }
                 else if (element.toLowerCase().includes("thunder")){
@@ -285,9 +281,6 @@ document.addEventListener('DOMContentLoaded', event => {
                 }
                 else if (element.toLowerCase().includes("sleet")){
                     futureWeatherIcons.push("../assets/icons/sleet.svg");
-                }
-                else if (element.toLowerCase().includes("blizzard")){
-                    futureWeatherIcons.push("../assets/icons/snow.svg");
                 }
 
                 return futureWeatherIcons;
@@ -351,7 +344,7 @@ document.addEventListener('DOMContentLoaded', event => {
             appContainer.append(newDiv);
 
         }).catch(error => {
-            console.log(error)
+            console.log(error);
         });
 
     });
