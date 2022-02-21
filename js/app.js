@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
     get_current_weather("auto:ip")
         .then(data => {
+            console.log(data)
             bodyQuery.classList.remove('loading')
             cityNameQuery.innerText = data.location.name
             currentTempQuery.innerText = data.current.temp_c
@@ -82,12 +83,13 @@ document.addEventListener('DOMContentLoaded', event => {
 
             weatherIconQuery.src = weatherIcon
 
-            let dayDate = []
+            let dayName = []
             let dayWeather = []
             let dayTemperature = []
             data.forecast.forecastday.forEach(element => {
-                dayDate.push(element.date)
-                return dayDate
+                let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'})
+                dayName.push(day_name)
+                return dayName
             })
 
             data.forecast.forecastday.forEach(element => {
@@ -100,9 +102,9 @@ document.addEventListener('DOMContentLoaded', event => {
                 return dayTemperature
             })
 
-            dayQueries[0].innerText = dayDate[0]
-            dayQueries[1].innerText = dayDate[1]
-            dayQueries[2].innerText = dayDate[2]
+            dayQueries[0].innerText = "Today"
+            dayQueries[1].innerText = dayName[1]
+            dayQueries[2].innerText = dayName[2]
 
             dayTempQueries[0].innerText = dayTemperature[0]
             dayTempQueries[1].innerText = dayTemperature[1]
@@ -223,12 +225,13 @@ document.addEventListener('DOMContentLoaded', event => {
                 weatherIcon = "assets/icons/snow.svg"
             }
 
-            let dayDate = []
+            let dayName = []
             let dayWeather = []
             let dayTemperature = []
             data.forecast.forecastday.forEach(element => {
-                dayDate.push(element.date)
-                return dayDate
+                let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'})
+                dayName.push(day_name)
+                return dayName
             })
 
             data.forecast.forecastday.forEach(element => {
@@ -311,27 +314,27 @@ document.addEventListener('DOMContentLoaded', event => {
         
                     <ul class="weather__forecast">
                         <li>
-                            <span class="day">${dayDate[0]}</span> <img src="${futureWeatherIcons[0]}"/>
+                            <span class="day">Today</span> <img src="${futureWeatherIcons[0]}"/>
                             <span class="temperature"><span class="temperature__value">${dayTemperature[0]}</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">${dayDate[1]}</span> <img src="${futureWeatherIcons[1]}"/>
+                            <span class="day">${dayName[1]}</span> <img src="${futureWeatherIcons[1]}"/>
                             <span class="temperature"><span class="temperature__value">${dayTemperature[1]}</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">${dayDate[2]}</span> <img src="${futureWeatherIcons[2]}"/>
+                            <span class="day">${dayName[2]}</span> <img src="${futureWeatherIcons[2]}"/>
                             <span class="temperature"><span class="temperature__value">${dayTemperature[2]}</span>&deg;C</span>
                             </li>
         
                         <li>
-                            <span class="day">Friday</span> <img src="../assets/icons/partly-cloudy-day.svg"/>
+                            <span class="day">Next day</span> <img src="../assets/icons/partly-cloudy-day.svg"/>
                             <span class="temperature"><span class="temperature__value">5.0</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">Saturday</span> <img src="../assets/icons/clear-day.svg"/>
+                            <span class="day">Next day</span> <img src="../assets/icons/clear-day.svg"/>
                             <span class="temperature"><span class="temperature__value">8.6</span>&deg;C</span>
                         </li>
                     </ul>
