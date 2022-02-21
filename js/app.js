@@ -7,7 +7,7 @@ const currentTempQuery = document.querySelector('.temperature__value')
 const currentPressureQuery = document.querySelector('.pressure__value')
 const currentHumidityQuery = document.querySelector('.humidity__value')
 const currentWindSpeedQuery = document.querySelector('.wind-speed__value')
-const weatherIconQuery = document.querySelector('.weather__icon')
+const weatherIconQuery = document.querySelector('.weather__icon').firstElementChild
 
 const findCityForm = document.querySelector('.find-city')
 const findCityFormContainer = document.querySelector('.module__form')
@@ -34,42 +34,47 @@ document.addEventListener('DOMContentLoaded', event => {
             currentPressureQuery.innerText = `${data.current.pressure_mb} hPa`
             currentHumidityQuery.innerText = `${data.current.humidity}%`
             currentWindSpeedQuery.innerText = `${data.current.wind_kph} km/h`
+
+            let weatherIcon;
+
             if (data.current.condition.text.toLowerCase() === "sunny"){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/clear-day.svg")
+                weatherIcon = "assets/icons/clear-day.svg"
             }
             else if (data.current.condition.text.toLowerCase() === "clear"){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/clear-night.svg")
+                weatherIcon = "assets/icons/clear-night.svg"
             }
             else if (data.current.condition.text.toLowerCase() === "cloudy"){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/cloudy.svg")
+                weatherIcon = "assets/icons/cloudy.svg"
             }
             else if (data.current.condition.text.toLowerCase() === "partly cloudy"){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/partly-cloudy-day.svg")
+                weatherIcon = "assets/icons/partly-cloudy-day.svg"
             }
             else if (data.current.condition.text.toLowerCase().includes("fog")
-                     || data.current.condition.text.toLowerCase() === "overcast"
-                     || data.current.condition.text.toLowerCase() === "mist"){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/fog.svg")
+                || data.current.condition.text.toLowerCase() === "overcast"
+                || data.current.condition.text.toLowerCase() === "mist"){
+                weatherIcon = "assets/icons/fog.svg"
             }
             else if (data.current.condition.text.toLowerCase() === "cloudy"){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/cloudy.svg")
+                weatherIcon = "assets/icons/cloudy.svg"
             }
             else if (data.current.condition.text.toLowerCase().includes("rain") ||
-                     data.current.condition.text.toLowerCase().includes("drizzle")){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/rain.svg")
+                data.current.condition.text.toLowerCase().includes("drizzle")){
+                weatherIcon = "assets/icons/rain.svg"
             }
             else if (data.current.condition.text.toLowerCase().includes("snow")){
-                weatherIconQuery.firstElementChild.toLowerCase().setAttribute("src", "assets/icons/snow.svg")
+                weatherIcon = "assets/icons/snow.svg"
             }
-            else if (data.current.condition.text.includes("thunder")){
-                weatherIconQuery.firstElementChild.toLowerCase().setAttribute("src", "assets/icons/thunderstorm.svg")
+            else if (data.current.condition.text.toLowerCase().includes("thunder")){
+                weatherIcon = "assets/icons/thunderstorm.svg"
             }
-            else if (data.current.condition.text.includes("sleet")){
-                weatherIconQuery.firstElementChild.toLowerCase().setAttribute("src", "assets/icons/sleet.svg")
+            else if (data.current.condition.text.toLowerCase().includes("sleet")){
+                weatherIcon = "assets/icons/sleet.svg"
             }
             else if (data.current.condition.text.includes("blizzard")){
-                weatherIconQuery.firstElementChild.toLowerCase().setAttribute("src", "assets/icons/snow.svg")
+                weatherIcon = "assets/icons/snow.svg"
             }
+
+            weatherIconQuery.src = weatherIcon
 
         })
 
@@ -132,10 +137,10 @@ document.addEventListener('DOMContentLoaded', event => {
                 weatherIcon = "assets/icons/thunderstorm.svg"
             }
             else if (data.current.condition.text.toLowerCase().includes("sleet")){
-                weatherIconQuery.firstElementChild.setAttribute("src", "assets/icons/sleet.svg")
+                weatherIcon = "assets/icons/sleet.svg"
             }
             else if (data.current.condition.text.includes("blizzard")){
-                weatherIconQuery.firstElementChild.toLowerCase().setAttribute("src", "assets/icons/snow.svg")
+                weatherIcon = "assets/icons/snow.svg"
             }
 
             const newDiv = document.createElement('div')
