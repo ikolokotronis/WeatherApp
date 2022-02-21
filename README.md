@@ -55,6 +55,10 @@ If you wan't to upgrade the application and don't know how, please <a href="#con
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Screenshot
+
+![App screenshot](images/landingpage.png)
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
