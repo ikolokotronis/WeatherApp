@@ -62,7 +62,7 @@ If you wan't to upgrade the application and don't know how, please <a href="#con
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple example steps
+To get a local copy up and running follow these simple steps
 
 ### Installation
 
