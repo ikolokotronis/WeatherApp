@@ -1,17 +1,20 @@
 const apiKey = "f771e342fd1e419aa18102533222102"
 
+const bodyQuery = document.querySelector('body')
+
 const cityNameQuery = document.querySelector('.city__name')
 const currentTempQuery = document.querySelector('#current_temperature_value')
 const currentPressureQuery = document.querySelector('.pressure__value')
 const currentHumidityQuery = document.querySelector('.humidity__value')
 const currentWindSpeedQuery = document.querySelector('.wind-speed__value')
-const weatherIconQuery = document.querySelector('.weather__icon').firstElementChild
-const bodyQuery = document.querySelector('body')
 
 const findCityForm = document.querySelector('.find-city')
+
 const addCityButton = document.querySelector('#add-city')
-const closeCityButton = document.querySelector('#close-city')
 const closeFormButton = document.querySelector('#close-form')
+
+const weatherIconQueries = document.querySelectorAll('.weather__icon')
+const closeCityButtons = document.querySelectorAll('.close-city')
 
 async function get_current_weather(city){
     const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}`)
@@ -24,40 +27,41 @@ document.addEventListener('DOMContentLoaded', event => {
 
     get_current_weather("auto:ip")
         .then(data => {
-            console.log(data)
             bodyQuery.classList.remove('loading')
             cityNameQuery.innerText = data.location.name
             currentTempQuery.innerText = data.current.temp_c
             currentPressureQuery.innerText = `${data.current.pressure_mb} hPa`
             currentHumidityQuery.innerText = `${data.current.humidity}%`
             currentWindSpeedQuery.innerText = `${data.current.wind_kph} km/h`
-            if (data.current.condition.text === "Sunny"){
-                weatherIconQuery.setAttribute("src", "assets/icons/clear-day.svg")
-            }
-            if (data.current.condition.text === "Clear"){
-                weatherIconQuery.setAttribute("src", "assets/icons/clear-night.svg")
-            }
-            if (data.current.condition.text === "Cloudy"){
-                weatherIconQuery.setAttribute("src", "assets/icons/cloudy.svg")
-            }
-            if (data.current.condition.text === "Partly cloudy"){
-                weatherIconQuery.setAttribute("src", "assets/icons/partly-cloudy-day.svg")
-            }
-            if (data.current.condition.text === "Fog"){
-                weatherIconQuery.setAttribute("src", "assets/icons/fog.svg")
-            }
-            if (data.current.condition.text === "Cloudy"){
-                weatherIconQuery.setAttribute("src", "assets/icons/cloudy.svg")
-            }
-            if (data.current.condition.text.includes("rain")){
-                weatherIconQuery.setAttribute("src", "assets/icons/rain.svg")
-            }
-            if (data.current.condition.text.includes("snow")){
-                weatherIconQuery.setAttribute("src", "assets/icons/snow.svg")
-            }
-            if (data.current.condition.text.includes("thunder")){
-                weatherIconQuery.setAttribute("src", "assets/icons/thunderstorm.svg")
-            }
+            weatherIconQueries.forEach(element => {
+                if (data.current.condition.text === "Sunny"){
+                    element.firstElementChild.setAttribute("src", "assets/icons/clear-day.svg")
+                }
+                if (data.current.condition.text === "Clear"){
+                    element.firstElementChild.setAttribute("src", "assets/icons/clear-night.svg")
+                }
+                if (data.current.condition.text === "Cloudy"){
+                    element.firstElementChild.setAttribute("src", "assets/icons/cloudy.svg")
+                }
+                if (data.current.condition.text === "Partly cloudy"){
+                    element.firstElementChild.setAttribute("src", "assets/icons/partly-cloudy-day.svg")
+                }
+                if (data.current.condition.text === "Fog"){
+                    element.firstElementChild.setAttribute("src", "assets/icons/fog.svg")
+                }
+                if (data.current.condition.text === "Cloudy"){
+                    element.firstElementChild.setAttribute("src", "assets/icons/cloudy.svg")
+                }
+                if (data.current.condition.text.includes("rain")){
+                    element.firstElementChild.setAttribute("src", "assets/icons/rain.svg")
+                }
+                if (data.current.condition.text.includes("snow")){
+                    element.firstElementChild.setAttribute("src", "assets/icons/snow.svg")
+                }
+                if (data.current.condition.text.includes("thunder")){
+                    element.firstElementChild.setAttribute("src", "assets/icons/thunderstorm.svg")
+                }
+            })
 
         })
 
@@ -68,10 +72,10 @@ document.addEventListener('DOMContentLoaded', event => {
     closeFormButton.addEventListener('click', event => {
         document.querySelector('.module__form').setAttribute('hidden', true)
     })
-
-    closeCityButton.addEventListener('click', event => {
-        event.target.parentElement.parentElement.remove()
-        console.log('clicked')
+    closeCityButtons.forEach(element => {
+        element.addEventListener('click', event => {
+            event.target.parentElement.parentElement.remove()
+        })
     })
 
     findCityForm.addEventListener('submit', event => {
@@ -88,16 +92,46 @@ document.addEventListener('DOMContentLoaded', event => {
             const currentHumidity = `${data.current.humidity}%`
             const currentWindSpeed = `${data.current.wind_kph} km/h`
 
+            let weatherIcon;
+
+            if (data.current.condition.text === "Sunny"){
+                weatherIcon = "assets/icons/clear-day.svg"
+            }
+            if (data.current.condition.text === "Clear"){
+                weatherIcon = "assets/icons/clear-night.svg"
+            }
+            if (data.current.condition.text === "Cloudy"){
+                weatherIcon = "assets/icons/cloudy.svg"
+            }
+            if (data.current.condition.text === "Partly cloudy"){
+                weatherIcon = "assets/icons/partly-cloudy-day.svg"
+            }
+            if (data.current.condition.text === "Fog"){
+                weatherIcon = "assets/icons/fog.svg"
+            }
+            if (data.current.condition.text === "Cloudy"){
+                weatherIcon = "assets/icons/cloudy.svg"
+            }
+            if (data.current.condition.text.includes("rain")){
+                weatherIcon = "assets/icons/rain.svg"
+            }
+            if (data.current.condition.text.includes("snow")){
+                weatherIcon = "assets/icons/snow.svg"
+            }
+            if (data.current.condition.text.includes("thunder")){
+                weatherIcon = "assets/icons/thunderstorm.svg"
+            }
+
             const newDiv = document.createElement('div')
             newDiv.classList.add('module__weather')
             newDiv.innerHTML =
                 `
                 
             <div class="module module__weather">
-                <button class="btn btn--icon btn--close closeCity"><i class="material-icons">close</i></button>
+                <button class="btn btn--icon btn--close close-city" id="close_city"><i class="material-icons">close</i></button>
         
                 <div class="weather">
-                    <div class="weather__icon"><img src=""/></div>
+                    <div class="weather__icon"><img src="${weatherIcon}"/></div>
         
                     <div class="weather__info">
                         <div class="city">
@@ -146,5 +180,11 @@ document.addEventListener('DOMContentLoaded', event => {
         })
 
     })
+
+    document.addEventListener('click', function(e){
+        if(e.target && e.target.parentElement.id === 'close_city'){
+            e.target.parentElement.parentElement.remove()
+        }
+    });
 
 })
