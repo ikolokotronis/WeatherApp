@@ -19,8 +19,13 @@ const closeFormButton = document.querySelector('#close-form');
 const closeCityButton = document.querySelector('#close_city');
 
 async function get_current_weather(city){
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=3`);
-    return await response.json();
+    try {
+        const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=3`);
+        return await response.json();
+    }
+    catch(error){
+        console.log(error)
+    }
 }
 
 bodyQuery.classList.add('loading');
@@ -155,7 +160,9 @@ document.addEventListener('DOMContentLoaded', event => {
 
             });
 
-        });
+        }).catch(error => {
+            console.log(error)
+    });
 
     findCityForm.addEventListener('submit', event => {
 
@@ -343,6 +350,8 @@ document.addEventListener('DOMContentLoaded', event => {
 
             appContainer.append(newDiv);
 
+        }).catch(error => {
+            console.log(error)
         });
 
     });
