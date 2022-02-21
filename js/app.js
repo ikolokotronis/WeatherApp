@@ -1,94 +1,115 @@
-const api_key = "c5258b50eccf4402bec95003222002"
+const apiKey = "f771e342fd1e419aa18102533222102"
 
-const city_name_query = document.querySelector('.city__name')
-const current_temp_query = document.querySelector('#current_temperature_value')
-const current_pressure_query = document.querySelector('.pressure__value')
-const current_humidity_query = document.querySelector('.humidity__value')
-const current_wind_speed_query = document.querySelector('.wind-speed__value')
-const weather_icon_query = document.querySelector('.weather__icon').firstElementChild
-const body_query = document.querySelector('body')
+const cityNameQuery = document.querySelector('.city__name')
+const currentTempQuery = document.querySelector('#current_temperature_value')
+const currentPressureQuery = document.querySelector('.pressure__value')
+const currentHumidityQuery = document.querySelector('.humidity__value')
+const currentWindSpeedQuery = document.querySelector('.wind-speed__value')
+const weatherIconQuery = document.querySelector('.weather__icon').firstElementChild
+const bodyQuery = document.querySelector('body')
 
-const add_city_button = document.querySelector('#add-city')
-const find_city_form = document.querySelector('.find-city')
-const remove_city_button = document.querySelector('#delete-city')
+const findCityForm = document.querySelector('.find-city')
+const addCityButton = document.querySelector('#add-city')
+const closeCityButton = document.querySelector('#close-city')
+const closeFormButton = document.querySelector('#close-form')
 
 async function get_current_weather(city){
-    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${api_key}&q=${city}`)
+    const response = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}`)
     return await response.json()
 }
 
-body_query.classList.add('loading')
+bodyQuery.classList.add('loading')
 
 document.addEventListener('DOMContentLoaded', event => {
 
     get_current_weather("auto:ip")
         .then(data => {
-            body_query.classList.remove('loading')
-            city_name_query.innerText = data.location.name
-            current_temp_query.innerText = data.current.temp_c
-            current_pressure_query.innerText = `${data.current.pressure_mb} hPa`
-            current_humidity_query.innerText = `${data.current.humidity}%`
-            current_wind_speed_query.innerText = `${data.current.wind_kph} km/h`
-            if (data.current.condition.text.includes("rain")){
-                weather_icon_query.setAttribute("src", "assets/icons/rain.svg")
+            console.log(data)
+            bodyQuery.classList.remove('loading')
+            cityNameQuery.innerText = data.location.name
+            currentTempQuery.innerText = data.current.temp_c
+            currentPressureQuery.innerText = `${data.current.pressure_mb} hPa`
+            currentHumidityQuery.innerText = `${data.current.humidity}%`
+            currentWindSpeedQuery.innerText = `${data.current.wind_kph} km/h`
+            if (data.current.condition.text === "Sunny"){
+                weatherIconQuery.setAttribute("src", "assets/icons/clear-day.svg")
+            }
+            if (data.current.condition.text === "Clear"){
+                weatherIconQuery.setAttribute("src", "assets/icons/clear-night.svg")
+            }
+            if (data.current.condition.text === "Cloudy"){
+                weatherIconQuery.setAttribute("src", "assets/icons/cloudy.svg")
             }
             if (data.current.condition.text === "Partly cloudy"){
-                weather_icon_query.setAttribute("src", "assets/icons/partly-cloudy-day.svg")
+                weatherIconQuery.setAttribute("src", "assets/icons/partly-cloudy-day.svg")
+            }
+            if (data.current.condition.text === "Fog"){
+                weatherIconQuery.setAttribute("src", "assets/icons/fog.svg")
+            }
+            if (data.current.condition.text === "Cloudy"){
+                weatherIconQuery.setAttribute("src", "assets/icons/cloudy.svg")
+            }
+            if (data.current.condition.text.includes("rain")){
+                weatherIconQuery.setAttribute("src", "assets/icons/rain.svg")
+            }
+            if (data.current.condition.text.includes("snow")){
+                weatherIconQuery.setAttribute("src", "assets/icons/snow.svg")
+            }
+            if (data.current.condition.text.includes("thunder")){
+                weatherIconQuery.setAttribute("src", "assets/icons/thunderstorm.svg")
             }
 
         })
 
-    let click_counter = 0
-    add_city_button.addEventListener('click', event => {
-        click_counter += 1
-        if (click_counter % 2 === 0){
-            document.querySelector('.module__form').setAttribute('hidden', true)
-        }
-        else{
-            document.querySelector('.module__form').removeAttribute('hidden')
-        }
+    addCityButton.addEventListener('click', event => {
+        document.querySelector('.module__form').removeAttribute('hidden')
     })
 
-    remove_city_button.addEventListener('click', event => {
+    closeFormButton.addEventListener('click', event => {
+        document.querySelector('.module__form').setAttribute('hidden', true)
+    })
+
+    closeCityButton.addEventListener('click', event => {
         event.target.parentElement.parentElement.remove()
+        console.log('clicked')
     })
 
-    find_city_form.addEventListener('submit', event => {
-        body_query.classList.add('loading')
+    findCityForm.addEventListener('submit', event => {
+        bodyQuery.classList.add('loading')
         event.preventDefault()
         const searchInputValue = document.querySelector('#search').value
         const appContainer = document.querySelector('#app')
         get_current_weather(searchInputValue).then(data => {
             console.log(data)
-            body_query.classList.remove('loading')
-            const city_name = data.location.name
-            const current_temp = data.current.temp_c
-            const current_pressure = `${data.current.pressure_mb} hPa`
-            const current_humidity = `${data.current.humidity}%`
-            const current_wind_speed = `${data.current.wind_kph} km/h`
+            bodyQuery.classList.remove('loading')
+            const cityName = data.location.name
+            const currentTemp = data.current.temp_c
+            const currentPressure = `${data.current.pressure_mb} hPa`
+            const currentHumidity = `${data.current.humidity}%`
+            const currentWindSpeed = `${data.current.wind_kph} km/h`
 
-            const new_div = document.createElement('div')
-            new_div.classList.add('module__weather')
-            new_div.innerHTML =
+            const newDiv = document.createElement('div')
+            newDiv.classList.add('module__weather')
+            newDiv.innerHTML =
                 `
                 
             <div class="module module__weather">
-                <button class="btn btn--icon btn--close"><i class="material-icons">close</i></button>
+                <button class="btn btn--icon btn--close closeCity"><i class="material-icons">close</i></button>
         
                 <div class="weather">
                     <div class="weather__icon"><img src=""/></div>
         
                     <div class="weather__info">
                         <div class="city">
-                            <span class="city__name">${city_name}</span> <span class="btn btn--icon"><i class="material-icons">edit</i></span>
+                            <span class="city__name">${cityName}</span> <span class="btn btn--icon"><i class="material-icons">edit</i></span>
                         </div>
-                        <div class="temperature"><span id="current_temperature_value" class="temperature__value">${current_temp}</span>&deg;C</div>
+                        <div class="temperature"><span id="current_temperature_value" class="temperature__value">${currentTemp}</span>&deg;C</div>
                     </div>
         
                     <ul class="weather__details">
-                        <li><img src="../assets/icons/pressure.svg"/> <span class="pressure__value">${current_pressure}</span></li>
-                        <li><img src="../assets/icons/humidity.svg"/> <span class="humidity__value">${current_humidity}</span></li>
-                        <li><img src="../assets/icons/wind-speed.svg"/> <span class="wind-speed__value">${current_wind_speed}</span></li>
+                        <li><img src="../assets/icons/pressure.svg"/> <span class="pressure__value">${currentPressure}</span></li>
+                        <li><img src="../assets/icons/humidity.svg"/> <span class="humidity__value">${currentHumidity}</span></li>
+                        <li><img src="../assets/icons/wind-speed.svg"/> <span class="wind-speed__value">${currentWindSpeed}</span></li>
                     </ul>
         
                     <ul class="weather__forecast">
@@ -121,9 +142,7 @@ document.addEventListener('DOMContentLoaded', event => {
             </div>
        
                 `
-
-            appContainer.append(new_div)
-
+            appContainer.append(newDiv)
         })
 
     })
