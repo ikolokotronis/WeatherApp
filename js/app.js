@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', event => {
             else if (data.current.condition.text.toLowerCase().includes("sleet")){
                 weatherIcon = "assets/icons/sleet.svg";
             }
-            else if (data.current.condition.text.includes("blizzard")){
+            else if (data.current.condition.text.toLowerCase().includes("blizzard")){
                 weatherIcon = "assets/icons/snow.svg";
             }
 
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 else if (day.nextElementSibling.alt.toLowerCase().includes("sleet")){
                     day.nextElementSibling.src = "assets/icons/sleet.svg";
                 }
-                else if (day.nextElementSibling.alt.includes("blizzard")){
+                else if (day.nextElementSibling.alt.toLowerCase().includes("blizzard")){
                     day.nextElementSibling.src = "assets/icons/snow.svg";
                 }
 
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', event => {
             else if (data.current.condition.text.toLowerCase().includes("sleet")){
                 weatherIcon = "assets/icons/sleet.svg";
             }
-            else if (data.current.condition.text.includes("blizzard")){
+            else if (data.current.condition.text.toLowerCase().includes("blizzard")){
                 weatherIcon = "assets/icons/snow.svg";
             }
 
@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 else if (element.toLowerCase().includes("sleet")){
                     futureWeatherIcons.push("../assets/icons/sleet.svg");
                 }
-                else if (element.includes("blizzard")){
+                else if (element.toLowerCase().includes("blizzard")){
                     futureWeatherIcons.push("../assets/icons/snow.svg");
                 }
                 return futureWeatherIcons;
