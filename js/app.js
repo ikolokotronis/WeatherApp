@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
     get_current_weather("auto:ip")
         .then(data => {
-            console.log(data);
+
             bodyQuery.classList.remove('loading');
             cityNameQuery.innerText = data.location.name;
             currentTempQuery.innerText = data.current.temp_c;
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 weatherIcon = "assets/icons/partly-cloudy-day.svg";
             }
             else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                data.current.is_day === 0){
+                     data.current.is_day === 0){
                 weatherIcon = "assets/icons/partly-cloudy-night.svg";
             }
             else if (data.current.condition.text.toLowerCase().includes("fog") ||
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 weatherIcon = "assets/icons/cloudy.svg";
             }
             else if (data.current.condition.text.toLowerCase().includes("rain") ||
-                data.current.condition.text.toLowerCase().includes("drizzle")){
+                     data.current.condition.text.toLowerCase().includes("drizzle")){
                 weatherIcon = "assets/icons/rain.svg";
             }
             else if (data.current.condition.text.toLowerCase().includes("snow")){
@@ -86,21 +86,22 @@ document.addEventListener('DOMContentLoaded', event => {
             let dayName = [];
             let dayWeather = [];
             let dayTemperature = [];
+
             data.forecast.forecastday.forEach(element => {
                 let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'});
                 dayName.push(day_name);
                 return dayName;
-            })
+            });
 
             data.forecast.forecastday.forEach(element => {
                 dayWeather.push(element.day.condition.text);
                 return dayWeather;
-            })
+            });
 
             data.forecast.forecastday.forEach(element => {
                 dayTemperature.push(element.day.avgtemp_c);
                 return dayTemperature;
-            })
+            });
 
             dayQueries[0].innerText = "Today";
             dayQueries[1].innerText = dayName[1];
@@ -152,28 +153,22 @@ document.addEventListener('DOMContentLoaded', event => {
                     day.nextElementSibling.src = "assets/icons/snow.svg";
                 }
 
-            })
+            });
 
-        })
-
-    addCityButton.addEventListener('click', event => {
-        findCityFormContainer.removeAttribute('hidden');
-    })
-
-    closeFormButton.addEventListener('click', event => {
-        findCityFormContainer.setAttribute('hidden', true);
-    })
-
-    closeCityButton.addEventListener('click', event => {
-        event.target.parentElement.parentElement.remove();
-    })
+        });
 
     findCityForm.addEventListener('submit', event => {
+
         bodyQuery.classList.add('loading');
+
         event.preventDefault();
+
         const searchInputValue = document.querySelector('#search').value;
+
         const appContainer = document.querySelector('#app');
-        get_current_weather(searchInputValue).then(data => {
+
+        get_current_weather(searchInputValue)
+            .then(data => {
             bodyQuery.classList.remove('loading');
             const cityName = data.location.name;
             const currentTemp = data.current.temp_c;
@@ -193,11 +188,11 @@ document.addEventListener('DOMContentLoaded', event => {
                 weatherIcon = "assets/icons/cloudy.svg";
             }
             else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                data.current.is_day === 1){
+                     data.current.is_day === 1){
                 weatherIcon = "assets/icons/partly-cloudy-day.svg";
             }
             else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                data.current.is_day === 0){
+                     data.current.is_day === 0){
                 weatherIcon = "assets/icons/partly-cloudy-night.svg";
             }
             else if (data.current.condition.text.toLowerCase().includes("fog") ||
@@ -226,23 +221,26 @@ document.addEventListener('DOMContentLoaded', event => {
             }
 
             let dayName = [];
+
             let dayWeather = [];
+
             let dayTemperature = [];
+
             data.forecast.forecastday.forEach(element => {
                 let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'});
                 dayName.push(day_name);
                 return dayName;
-            })
+            });
 
             data.forecast.forecastday.forEach(element => {
                 dayWeather.push(element.day.condition.text);
                 return dayWeather;
-            })
+            });
 
             data.forecast.forecastday.forEach(element => {
                 dayTemperature.push(element.day.avgtemp_c);
                 return dayTemperature;
-            })
+            });
 
             let futureWeatherIcons = [];
 
@@ -284,15 +282,16 @@ document.addEventListener('DOMContentLoaded', event => {
                 else if (element.toLowerCase().includes("blizzard")){
                     futureWeatherIcons.push("../assets/icons/snow.svg");
                 }
-                return futureWeatherIcons;
-            })
 
+                return futureWeatherIcons;
+
+            });
 
             const newDiv = document.createElement('div');
             newDiv.classList.add('module__weather');
             newDiv.innerHTML =
+
                 `
-                
             <div class="module module__weather">
                 <button class="btn btn--icon btn--close close-city" id="close_city"><i class="material-icons">close</i></button>
         
@@ -340,17 +339,31 @@ document.addEventListener('DOMContentLoaded', event => {
                     </ul>
                 </div>
             </div>
-       
                 `
-            appContainer.append(newDiv);
-        })
 
-    })
+            appContainer.append(newDiv);
+
+        });
+
+    });
+
+    addCityButton.addEventListener('click', event => {
+        findCityFormContainer.removeAttribute('hidden');
+    });
+
+    closeFormButton.addEventListener('click', event => {
+        findCityFormContainer.setAttribute('hidden', true);
+    });
+
+    closeCityButton.addEventListener('click', event => {
+        event.target.parentElement.parentElement.remove();
+    });
 
     document.addEventListener('click', function(e){
         if(e.target && e.target.parentElement.classList.contains('close-city')){
             e.target.parentElement.parentElement.remove();
         }
+
     });
 
 })
