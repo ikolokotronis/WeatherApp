@@ -10,6 +10,7 @@ const currentWindSpeedQuery = document.querySelector('.wind-speed__value')
 const weatherIconQuery = document.querySelector('.weather__icon')
 
 const findCityForm = document.querySelector('.find-city')
+const findCityFormContainer = document.querySelector('.module__form')
 
 const addCityButton = document.querySelector('#add-city')
 const closeFormButton = document.querySelector('#close-form')
@@ -64,11 +65,11 @@ document.addEventListener('DOMContentLoaded', event => {
         })
 
     addCityButton.addEventListener('click', event => {
-        document.querySelector('.module__form').removeAttribute('hidden')
+        findCityFormContainer.removeAttribute('hidden')
     })
 
     closeFormButton.addEventListener('click', event => {
-        document.querySelector('.module__form').setAttribute('hidden', true)
+        findCityFormContainer.setAttribute('hidden', true)
     })
 
     closeCityButton.addEventListener('click', event => {
