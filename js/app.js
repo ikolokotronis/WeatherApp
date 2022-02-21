@@ -160,7 +160,9 @@ document.addEventListener('DOMContentLoaded', event => {
             });
 
         }).catch(error => {
+
             console.log(error);
+
     });
 
     findCityForm.addEventListener('submit', event => {
@@ -342,9 +344,12 @@ document.addEventListener('DOMContentLoaded', event => {
                 `
 
             appContainer.append(newDiv);
+            event.target.reset()
 
         }).catch(error => {
+
             console.log(error);
+
         });
 
     });
@@ -361,11 +366,10 @@ document.addEventListener('DOMContentLoaded', event => {
         event.target.parentElement.parentElement.remove();
     });
 
-    document.addEventListener('click', function(e){
-        if(e.target && e.target.parentElement.classList.contains('close-city')){
-            e.target.parentElement.parentElement.remove();
+    document.addEventListener('click', function(event){
+        if(event.target && event.target.parentElement.classList.contains('close-city')){
+            event.target.parentElement.parentElement.remove();
         }
-
     });
 
 })
