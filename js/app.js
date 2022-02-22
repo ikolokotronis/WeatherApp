@@ -33,7 +33,7 @@ async function get_current_weather(city){
 }
 
 
-class RenderWeatherIcon{
+class RenderWeatherData{
 
     get_current_weather(data){
         if (data.current.condition.text.toLowerCase() === "sunny"){
@@ -123,9 +123,34 @@ class RenderWeatherIcon{
 
         return futureWeatherIcons
     }
+
+    get_day_names(data){
+        let dayNames = []
+        data.forecast.forecastday.forEach(element => {
+            let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'});
+            dayNames.push(day_name);
+        });
+        return dayNames;
+    }
+
+    get_weather_conditions(data){
+        let dayWeatherConditions = []
+        data.forecast.forecastday.forEach(element => {
+            dayWeatherConditions.push(element.day.condition.text);
+        });
+        return dayWeatherConditions;
+    }
+
+    get_temperatures(data){
+        let dayTemperatures = []
+        data.forecast.forecastday.forEach(element => {
+            dayTemperatures.push(element.day.avgtemp_c);
+        });
+        return dayTemperatures;
+    }
 }
 
-const getWeatherIcon = new RenderWeatherIcon()
+const getWeatherData = new RenderWeatherData()
 
 bodyQuery.classList.add('loading');
 
@@ -133,7 +158,6 @@ document.addEventListener('DOMContentLoaded', event => {
 
     get_current_weather("auto:ip")
         .then(data => {
-
             bodyQuery.classList.remove('loading');
             cityNameQuery.innerText = data.location.name;
             currentTempQuery.innerText = data.current.temp_c;
@@ -141,39 +165,25 @@ document.addEventListener('DOMContentLoaded', event => {
             currentHumidityQuery.innerText = `${data.current.humidity}%`;
             currentWindSpeedQuery.innerText = `${data.current.wind_kph} km/h`;
 
-            weatherIconQuery.src = getWeatherIcon.get_current_weather(data);
+            weatherIconQuery.src = getWeatherData.get_current_weather(data);
 
-            let dayName = [];
-            let dayWeather = [];
-            let dayTemperature = [];
+            const futureDayNames = getWeatherData.get_day_names(data)
 
-            data.forecast.forecastday.forEach(element => {
-                let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'});
-                dayName.push(day_name);
-                return dayName;
-            });
+            const futureWeatherConditions = getWeatherData.get_weather_conditions(data)
 
-            data.forecast.forecastday.forEach(element => {
-                dayWeather.push(element.day.condition.text);
-                return dayWeather;
-            });
-
-            data.forecast.forecastday.forEach(element => {
-                dayTemperature.push(element.day.avgtemp_c);
-                return dayTemperature;
-            });
+            const futureTemperatures = getWeatherData.get_temperatures(data)
 
             dayQueries[0].innerText = "Today";
-            dayQueries[1].innerText = dayName[1];
-            dayQueries[2].innerText = dayName[2];
+            dayQueries[1].innerText = futureDayNames[1];
+            dayQueries[2].innerText = futureDayNames[2];
 
-            dayTempQueries[0].innerText = dayTemperature[0];
-            dayTempQueries[1].innerText = dayTemperature[1];
-            dayTempQueries[2].innerText = dayTemperature[2];
+            dayTempQueries[0].innerText = futureTemperatures[0];
+            dayTempQueries[1].innerText = futureTemperatures[1];
+            dayTempQueries[2].innerText = futureTemperatures[2];
 
-            dayQueries[0].nextElementSibling.setAttribute('alt', dayWeather[0]);
-            dayQueries[1].nextElementSibling.setAttribute('alt', dayWeather[1]);
-            dayQueries[2].nextElementSibling.setAttribute('alt', dayWeather[2]);
+            dayQueries[0].nextElementSibling.setAttribute('alt', futureWeatherConditions[0]);
+            dayQueries[1].nextElementSibling.setAttribute('alt', futureWeatherConditions[1]);
+            dayQueries[2].nextElementSibling.setAttribute('alt', futureWeatherConditions[2]);
 
             let imgAltValues = []
 
@@ -182,7 +192,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 return imgAltValues
             })
 
-            const futureWeatherIcons = getWeatherIcon.get_future_weather(imgAltValues)
+            const futureWeatherIcons = getWeatherData.get_future_weather(imgAltValues)
 
             dayQueries[0].nextElementSibling.setAttribute('src', futureWeatherIcons[0]);
             dayQueries[1].nextElementSibling.setAttribute('src', futureWeatherIcons[1]);
@@ -211,29 +221,13 @@ document.addEventListener('DOMContentLoaded', event => {
             const currentHumidity = `${data.current.humidity}%`;
             const currentWindSpeed = `${data.current.wind_kph} km/h`;
 
-            let dayNames = [];
+            const futureDayNames = getWeatherData.get_day_names(data)
 
-            let dayWeatherConditions = [];
+            const futureWeatherConditions = getWeatherData.get_weather_conditions(data)
 
-            let dayTemperatures = [];
+            const futureTemperatures = getWeatherData.get_temperatures(data)
 
-            data.forecast.forecastday.forEach(element => {
-                let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'});
-                dayNames.push(day_name);
-                return dayNames;
-            });
-
-            data.forecast.forecastday.forEach(element => {
-                dayWeatherConditions.push(element.day.condition.text);
-                return dayWeatherConditions;
-            });
-
-            data.forecast.forecastday.forEach(element => {
-                dayTemperatures.push(element.day.avgtemp_c);
-                return dayTemperatures;
-            });
-
-            const futureWeatherIcons = getWeatherIcon.get_future_weather(dayWeatherConditions)
+            const futureWeatherIcons = getWeatherData.get_future_weather(futureWeatherConditions)
 
             const newDiv = document.createElement('div');
             newDiv.classList.add('module__weather');
@@ -244,7 +238,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 <button class="btn btn--icon btn--close close-city" id="close_city"><i class="material-icons">close</i></button>
         
                 <div class="weather">
-                    <div class="weather__icon"><img src="${getWeatherIcon.get_current_weather(data)}"/></div>
+                    <div class="weather__icon"><img src="${getWeatherData.get_current_weather(data)}"/></div>
         
                     <div class="weather__info">
                         <div class="city">
@@ -262,17 +256,17 @@ document.addEventListener('DOMContentLoaded', event => {
                     <ul class="weather__forecast">
                         <li>
                             <span class="day">Today</span> <img src="${futureWeatherIcons[0]}"/>
-                            <span class="temperature"><span class="temperature__value">${dayTemperatures[0]}</span>&deg;C</span>
+                            <span class="temperature"><span class="temperature__value">${futureTemperatures[0]}</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">${dayNames[1]}</span> <img src="${futureWeatherIcons[1]}"/>
-                            <span class="temperature"><span class="temperature__value">${dayTemperatures[1]}</span>&deg;C</span>
+                            <span class="day">${futureDayNames[1]}</span> <img src="${futureWeatherIcons[1]}"/>
+                            <span class="temperature"><span class="temperature__value">${futureTemperatures[1]}</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">${dayNames[2]}</span> <img src="${futureWeatherIcons[2]}"/>
-                            <span class="temperature"><span class="temperature__value">${dayTemperatures[2]}</span>&deg;C</span>
+                            <span class="day">${futureDayNames[2]}</span> <img src="${futureWeatherIcons[2]}"/>
+                            <span class="temperature"><span class="temperature__value">${futureTemperatures[2]}</span>&deg;C</span>
                             </li>
         
                         <li>
