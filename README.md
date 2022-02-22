@@ -26,6 +26,9 @@
       <a href="#about-the-project">About The Project</a>
     </li>
     <li>
+      <a href="#key-functionalities">Key Functionalities</a>
+    </li>
+    <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#installation">Installation</a></li>
@@ -42,16 +45,30 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A JS application that fetches information from an API about the current weather conditions, as well as about the weather conditions in the following days. I used a free api version that allows to retrieve information only for the current day and the next two, in which case I couldn't fetch data about the whole week.  
+A JS application that fetches information from an API about current weather conditions, as well as weather conditions in the following days. I used a free api version that allows to retrieve information only for the current day and the next two, in which case I couldn't fetch data about the whole week.  
 That's why you will see "Not available" instead of the last four days, but the app can be upgraded easily if you have access to a key that allows that.  
 If you wan't to upgrade the application and don't know how, please <a href="#contact">contact</a> me.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+## Key Functionalities
+<ul>
+  <li>Landing page displays information about the weather condition in your current location (based on your IP)</li>
+  <li>Search for any city in the world easily</li>
+  <li>App displays information about: </li>
+  <ul>
+    <li>Temperature in celcius</li>
+    <li>Humidity</li>
+    <li>Pressure</li>
+    <li>Wind speed</li>
+  </ul>
+</ul>
+
+
 ## Demo
 
-<i>Not available yet</i>
+![App gif demo](gifs/Demo.gif)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
