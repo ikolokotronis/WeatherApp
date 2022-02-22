@@ -8,6 +8,7 @@ const currentPressureQuery = document.querySelector('.pressure__value');
 const currentHumidityQuery = document.querySelector('.humidity__value');
 const currentWindSpeedQuery = document.querySelector('.wind-speed__value');
 const weatherIconQuery = document.querySelector('.weather__icon').firstElementChild;
+const searchErrorQuery = document.querySelector('.search-error')
 
 const dayQueries = document.querySelectorAll('.validDay');
 const dayTempQueries = document.querySelectorAll('.validDayTemp');
@@ -27,7 +28,7 @@ async function get_current_weather(city){
         return await response.json();
     }
     catch(error){
-        console.log(error);
+        console.log("An error occurred, it probably has to do with the api key");
     }
 }
 
@@ -189,7 +190,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
         }).catch(error => {
 
-            console.log(error);
+            console.log("An error occurred while fetching your IP")
 
     });
 
@@ -293,7 +294,7 @@ document.addEventListener('DOMContentLoaded', event => {
 
         }).catch(error => {
 
-            console.log(error);
+            searchErrorQuery.innerText = "An error occurred, please try again"
 
         });
 
