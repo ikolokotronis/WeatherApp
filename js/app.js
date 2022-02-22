@@ -31,6 +31,101 @@ async function get_current_weather(city){
     }
 }
 
+
+class RenderWeatherIcon{
+
+    get_current_weather(data){
+        if (data.current.condition.text.toLowerCase() === "sunny"){
+            return "assets/icons/clear-day.svg";
+        }
+        else if (data.current.condition.text.toLowerCase() === "clear"){
+            return "assets/icons/clear-night.svg";
+        }
+        else if (data.current.condition.text.toLowerCase() === "cloudy"){
+            return "assets/icons/cloudy.svg";
+        }
+        else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
+            data.current.is_day === 1){
+            return "assets/icons/partly-cloudy-day.svg";
+        }
+        else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
+            data.current.is_day === 0){
+            return "assets/icons/partly-cloudy-night.svg";
+        }
+        else if (data.current.condition.text.toLowerCase().includes("fog") ||
+            data.current.condition.text.toLowerCase() === "overcast" ||
+            data.current.condition.text.toLowerCase() === "mist"){
+            return "assets/icons/fog.svg";
+        }
+        else if (data.current.condition.text.toLowerCase() === "cloudy"){
+            return "assets/icons/cloudy.svg";
+        }
+        else if (data.current.condition.text.toLowerCase().includes("rain") ||
+            data.current.condition.text.toLowerCase().includes("drizzle")){
+            return "assets/icons/rain.svg";
+        }
+        else if (data.current.condition.text.toLowerCase().includes("snow") ||
+            data.current.condition.text.toLowerCase().includes("blizzard")){
+            return "assets/icons/snow.svg";
+        }
+        else if (data.current.condition.text.toLowerCase().includes("thunder")){
+            return "assets/icons/thunderstorm.svg";
+        }
+        else if (data.current.condition.text.toLowerCase().includes("sleet")){
+            return "assets/icons/sleet.svg";
+
+        }
+        return "Wrong data";
+    }
+
+    get_future_weather(dayWeatherConditions){
+
+        let futureWeatherIcons = [];
+
+        dayWeatherConditions.forEach(weatherCondition => {
+            if (weatherCondition.toLowerCase() === "sunny"){
+                futureWeatherIcons.push("../assets/icons/clear-day.svg");
+            }
+            else if (weatherCondition.toLowerCase() === "clear"){
+                futureWeatherIcons.push("../assets/icons/clear-night.svg");
+            }
+            else if (weatherCondition.toLowerCase() === "cloudy"){
+                futureWeatherIcons.push("../assets/icons/cloudy.svg");
+            }
+            else if (weatherCondition.toLowerCase() === "partly cloudy"){
+                futureWeatherIcons.push("../assets/icons/partly-cloudy-day.svg");
+            }
+            else if (weatherCondition.toLowerCase().includes("fog") ||
+                     weatherCondition.toLowerCase() === "overcast" ||
+                     weatherCondition.toLowerCase() === "mist"){
+                futureWeatherIcons.push("../assets/icons/fog.svg");
+            }
+            else if (weatherCondition.toLowerCase() === "cloudy"){
+                futureWeatherIcons.push("../assets/icons/cloudy.svg");
+            }
+            else if (weatherCondition.toLowerCase().includes("rain") ||
+                     weatherCondition.toLowerCase().includes("drizzle")){
+                futureWeatherIcons.push("../assets/icons/rain.svg");
+            }
+            else if (weatherCondition.toLowerCase().includes("snow") ||
+                     weatherCondition.toLowerCase().includes("blizzard")){
+                futureWeatherIcons.push("../assets/icons/snow.svg");
+            }
+            else if (weatherCondition.toLowerCase().includes("thunder")){
+                futureWeatherIcons.push("../assets/icons/thunderstorm.svg");
+            }
+            else if (weatherCondition.toLowerCase().includes("sleet")){
+                futureWeatherIcons.push("../assets/icons/sleet.svg");
+            }
+
+        });
+
+        return futureWeatherIcons
+    }
+}
+
+const getWeatherIcon = new RenderWeatherIcon()
+
 bodyQuery.classList.add('loading');
 
 document.addEventListener('DOMContentLoaded', event => {
@@ -45,49 +140,7 @@ document.addEventListener('DOMContentLoaded', event => {
             currentHumidityQuery.innerText = `${data.current.humidity}%`;
             currentWindSpeedQuery.innerText = `${data.current.wind_kph} km/h`;
 
-            let weatherIcon;
-
-            if (data.current.condition.text.toLowerCase() === "sunny"){
-                weatherIcon = "assets/icons/clear-day.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "clear"){
-                weatherIcon = "assets/icons/clear-night.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "cloudy"){
-                weatherIcon = "assets/icons/cloudy.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                     data.current.is_day === 1){
-                weatherIcon = "assets/icons/partly-cloudy-day.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                     data.current.is_day === 0){
-                weatherIcon = "assets/icons/partly-cloudy-night.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("fog") ||
-                     data.current.condition.text.toLowerCase() === "overcast" ||
-                     data.current.condition.text.toLowerCase() === "mist"){
-                weatherIcon = "assets/icons/fog.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "cloudy"){
-                weatherIcon = "assets/icons/cloudy.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("rain") ||
-                     data.current.condition.text.toLowerCase().includes("drizzle")){
-                weatherIcon = "assets/icons/rain.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("snow") ||
-                     data.current.condition.text.toLowerCase().includes("blizzard")){
-                weatherIcon = "assets/icons/snow.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("thunder")){
-                weatherIcon = "assets/icons/thunderstorm.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("sleet")){
-                weatherIcon = "assets/icons/sleet.svg";
-            }
-
-            weatherIconQuery.src = weatherIcon;
+            weatherIconQuery.src = getWeatherIcon.get_current_weather(data);
 
             let dayName = [];
             let dayWeather = [];
@@ -121,43 +174,18 @@ document.addEventListener('DOMContentLoaded', event => {
             dayQueries[1].nextElementSibling.setAttribute('alt', dayWeather[1]);
             dayQueries[2].nextElementSibling.setAttribute('alt', dayWeather[2]);
 
-            dayQueries.forEach(day => {
-                if (day.nextElementSibling.alt.toLowerCase() === "sunny"){
-                    day.nextElementSibling.src = "assets/icons/clear-day.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase() === "clear"){
-                    day.nextElementSibling.src = "assets/icons/clear-night.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase() === "cloudy"){
-                    day.nextElementSibling.src = "assets/icons/cloudy.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase() === "partly cloudy"){
-                    day.nextElementSibling.src = "assets/icons/partly-cloudy-day.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("fog") ||
-                         day.nextElementSibling.alt.toLowerCase() === "overcast" ||
-                         day.nextElementSibling.alt.toLowerCase() === "mist"){
-                    day.nextElementSibling.src = "assets/icons/fog.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase() === "cloudy"){
-                    day.nextElementSibling.src = "assets/icons/cloudy.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("rain") ||
-                         day.nextElementSibling.alt.toLowerCase().includes("drizzle")){
-                    day.nextElementSibling.src = "assets/icons/rain.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("snow") ||
-                         day.nextElementSibling.alt.toLowerCase().includes("blizzard")){
-                    day.nextElementSibling.src = "assets/icons/snow.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("thunder")){
-                    day.nextElementSibling.src = "assets/icons/thunderstorm.svg";
-                }
-                else if (day.nextElementSibling.alt.toLowerCase().includes("sleet")){
-                    day.nextElementSibling.src = "assets/icons/sleet.svg";
-                }
+            let imgAltValues = []
 
-            });
+            dayQueries.forEach(day => {
+                imgAltValues.push(day.nextElementSibling.alt)
+                return imgAltValues
+            })
+
+            const futureWeatherIcons = getWeatherIcon.get_future_weather(imgAltValues)
+
+            dayQueries[0].nextElementSibling.setAttribute('src', futureWeatherIcons[0]);
+            dayQueries[1].nextElementSibling.setAttribute('src', futureWeatherIcons[1]);
+            dayQueries[2].nextElementSibling.setAttribute('src', futureWeatherIcons[2]);
 
         }).catch(error => {
 
@@ -182,112 +210,29 @@ document.addEventListener('DOMContentLoaded', event => {
             const currentHumidity = `${data.current.humidity}%`;
             const currentWindSpeed = `${data.current.wind_kph} km/h`;
 
-            let weatherIcon;
+            let dayNames = [];
 
-            if (data.current.condition.text.toLowerCase() === "sunny"){
-                weatherIcon = "assets/icons/clear-day.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "clear"){
-                weatherIcon = "assets/icons/clear-night.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "cloudy"){
-                weatherIcon = "assets/icons/cloudy.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                     data.current.is_day === 1){
-                weatherIcon = "assets/icons/partly-cloudy-day.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-                     data.current.is_day === 0){
-                weatherIcon = "assets/icons/partly-cloudy-night.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("fog") ||
-                     data.current.condition.text.toLowerCase() === "overcast" ||
-                     data.current.condition.text.toLowerCase() === "mist"){
-                weatherIcon = "assets/icons/fog.svg";
-            }
-            else if (data.current.condition.text.toLowerCase() === "cloudy"){
-                weatherIcon = "assets/icons/cloudy.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("rain") ||
-                     data.current.condition.text.toLowerCase().includes("drizzle")){
-                weatherIcon = "assets/icons/rain.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("snow") ||
-                     data.current.condition.text.toLowerCase().includes("blizzard")){
-                weatherIcon = "assets/icons/snow.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("thunder")){
-                weatherIcon = "assets/icons/thunderstorm.svg";
-            }
-            else if (data.current.condition.text.toLowerCase().includes("sleet")){
-                weatherIcon = "assets/icons/sleet.svg";
-            }
+            let dayWeatherConditions = [];
 
-            let dayName = [];
-
-            let dayWeather = [];
-
-            let dayTemperature = [];
+            let dayTemperatures = [];
 
             data.forecast.forecastday.forEach(element => {
                 let day_name = new Date(element.date).toLocaleString('en-us', {weekday:'long'});
-                dayName.push(day_name);
-                return dayName;
+                dayNames.push(day_name);
+                return dayNames;
             });
 
             data.forecast.forecastday.forEach(element => {
-                dayWeather.push(element.day.condition.text);
-                return dayWeather;
+                dayWeatherConditions.push(element.day.condition.text);
+                return dayWeatherConditions;
             });
 
             data.forecast.forecastday.forEach(element => {
-                dayTemperature.push(element.day.avgtemp_c);
-                return dayTemperature;
+                dayTemperatures.push(element.day.avgtemp_c);
+                return dayTemperatures;
             });
 
-            let futureWeatherIcons = [];
-
-            dayWeather.forEach(element => {
-                if (element.toLowerCase() === "sunny"){
-                    futureWeatherIcons.push("../assets/icons/clear-day.svg");
-
-                }
-                else if (element.toLowerCase() === "clear"){
-                    futureWeatherIcons.push("../assets/icons/clear-night.svg");
-                }
-                else if (element.toLowerCase() === "cloudy"){
-                    futureWeatherIcons.push("../assets/icons/cloudy.svg");
-                }
-                else if (element.toLowerCase() === "partly cloudy"){
-                    futureWeatherIcons.push("../assets/icons/partly-cloudy-day.svg");
-                }
-                else if (element.toLowerCase().includes("fog") ||
-                         element.toLowerCase() === "overcast" ||
-                         element.toLowerCase() === "mist"){
-                    futureWeatherIcons.push("../assets/icons/fog.svg");
-                }
-                else if (element.toLowerCase() === "cloudy"){
-                    futureWeatherIcons.push("../assets/icons/cloudy.svg");
-                }
-                else if (element.toLowerCase().includes("rain") ||
-                         element.toLowerCase().includes("drizzle")){
-                    futureWeatherIcons.push("../assets/icons/rain.svg");
-                }
-                else if (element.toLowerCase().includes("snow") ||
-                         element.toLowerCase().includes("blizzard")){
-                    futureWeatherIcons.push("../assets/icons/snow.svg");
-                }
-                else if (element.toLowerCase().includes("thunder")){
-                    futureWeatherIcons.push("../assets/icons/thunderstorm.svg");
-                }
-                else if (element.toLowerCase().includes("sleet")){
-                    futureWeatherIcons.push("../assets/icons/sleet.svg");
-                }
-
-                return futureWeatherIcons;
-
-            });
+            const futureWeatherIcons = getWeatherIcon.get_future_weather(dayWeatherConditions)
 
             const newDiv = document.createElement('div');
             newDiv.classList.add('module__weather');
@@ -298,7 +243,7 @@ document.addEventListener('DOMContentLoaded', event => {
                 <button class="btn btn--icon btn--close close-city" id="close_city"><i class="material-icons">close</i></button>
         
                 <div class="weather">
-                    <div class="weather__icon"><img src="${weatherIcon}"/></div>
+                    <div class="weather__icon"><img src="${getWeatherIcon.get_current_weather(data)}"/></div>
         
                     <div class="weather__info">
                         <div class="city">
@@ -316,17 +261,17 @@ document.addEventListener('DOMContentLoaded', event => {
                     <ul class="weather__forecast">
                         <li>
                             <span class="day">Today</span> <img src="${futureWeatherIcons[0]}"/>
-                            <span class="temperature"><span class="temperature__value">${dayTemperature[0]}</span>&deg;C</span>
+                            <span class="temperature"><span class="temperature__value">${dayTemperatures[0]}</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">${dayName[1]}</span> <img src="${futureWeatherIcons[1]}"/>
-                            <span class="temperature"><span class="temperature__value">${dayTemperature[1]}</span>&deg;C</span>
+                            <span class="day">${dayNames[1]}</span> <img src="${futureWeatherIcons[1]}"/>
+                            <span class="temperature"><span class="temperature__value">${dayTemperatures[1]}</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">${dayName[2]}</span> <img src="${futureWeatherIcons[2]}"/>
-                            <span class="temperature"><span class="temperature__value">${dayTemperature[2]}</span>&deg;C</span>
+                            <span class="day">${dayNames[2]}</span> <img src="${futureWeatherIcons[2]}"/>
+                            <span class="temperature"><span class="temperature__value">${dayTemperatures[2]}</span>&deg;C</span>
                             </li>
         
                         <li>
