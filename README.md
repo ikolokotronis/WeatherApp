@@ -106,24 +106,6 @@ To get a local copy up and running follow these simple steps
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Any contributions you make are appreciated.
-
-If you have a suggestion that would make this better, please follow these instructions:
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b branch_name/some_text`)
-3. Commit your Changes (`git commit -m 'Commit name'`)
-4. Push to the Branch (`git push origin branch_name/some_text`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
 <!-- CONTACT -->
 
 ## Contact
