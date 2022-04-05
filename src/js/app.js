@@ -46,27 +46,27 @@ class RenderWeatherData{
             return "assets/icons/cloudy.svg";
         }
         else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-            data.current.is_day === 1){
+                 data.current.is_day === 1){
             return "assets/icons/partly-cloudy-day.svg";
         }
         else if (data.current.condition.text.toLowerCase() === "partly cloudy" &&
-            data.current.is_day === 0){
+                 data.current.is_day === 0){
             return "assets/icons/partly-cloudy-night.svg";
         }
         else if (data.current.condition.text.toLowerCase().includes("fog") ||
-            data.current.condition.text.toLowerCase() === "overcast" ||
-            data.current.condition.text.toLowerCase() === "mist"){
+                 data.current.condition.text.toLowerCase() === "overcast" ||
+                 data.current.condition.text.toLowerCase() === "mist"){
             return "assets/icons/fog.svg";
         }
         else if (data.current.condition.text.toLowerCase() === "cloudy"){
             return "assets/icons/cloudy.svg";
         }
         else if (data.current.condition.text.toLowerCase().includes("rain") ||
-            data.current.condition.text.toLowerCase().includes("drizzle")){
+                 data.current.condition.text.toLowerCase().includes("drizzle")){
             return "assets/icons/rain.svg";
         }
         else if (data.current.condition.text.toLowerCase().includes("snow") ||
-            data.current.condition.text.toLowerCase().includes("blizzard")){
+                 data.current.condition.text.toLowerCase().includes("blizzard")){
             return "assets/icons/snow.svg";
         }
         else if (data.current.condition.text.toLowerCase().includes("thunder")){
@@ -85,38 +85,38 @@ class RenderWeatherData{
 
         dayWeatherConditions.forEach(weatherCondition => {
             if (weatherCondition.toLowerCase() === "sunny"){
-                futureWeatherIcons.push("../assets/icons/clear-day.svg");
+                futureWeatherIcons.push("./assets/icons/clear-day.svg");
             }
             else if (weatherCondition.toLowerCase() === "clear"){
-                futureWeatherIcons.push("../assets/icons/clear-night.svg");
+                futureWeatherIcons.push("./assets/icons/clear-night.svg");
             }
             else if (weatherCondition.toLowerCase() === "cloudy"){
-                futureWeatherIcons.push("../assets/icons/cloudy.svg");
+                futureWeatherIcons.push("./assets/icons/cloudy.svg");
             }
             else if (weatherCondition.toLowerCase() === "partly cloudy"){
-                futureWeatherIcons.push("../assets/icons/partly-cloudy-day.svg");
+                futureWeatherIcons.push("./assets/icons/partly-cloudy-day.svg");
             }
             else if (weatherCondition.toLowerCase().includes("fog") ||
                      weatherCondition.toLowerCase() === "overcast" ||
                      weatherCondition.toLowerCase() === "mist"){
-                futureWeatherIcons.push("../assets/icons/fog.svg");
+                futureWeatherIcons.push("./assets/icons/fog.svg");
             }
             else if (weatherCondition.toLowerCase() === "cloudy"){
-                futureWeatherIcons.push("../assets/icons/cloudy.svg");
+                futureWeatherIcons.push("./assets/icons/cloudy.svg");
             }
             else if (weatherCondition.toLowerCase().includes("rain") ||
                      weatherCondition.toLowerCase().includes("drizzle")){
-                futureWeatherIcons.push("../assets/icons/rain.svg");
+                futureWeatherIcons.push("./assets/icons/rain.svg");
             }
             else if (weatherCondition.toLowerCase().includes("snow") ||
                      weatherCondition.toLowerCase().includes("blizzard")){
-                futureWeatherIcons.push("../assets/icons/snow.svg");
+                futureWeatherIcons.push("./assets/icons/snow.svg");
             }
             else if (weatherCondition.toLowerCase().includes("thunder")){
-                futureWeatherIcons.push("../assets/icons/thunderstorm.svg");
+                futureWeatherIcons.push("./assets/icons/thunderstorm.svg");
             }
             else if (weatherCondition.toLowerCase().includes("sleet")){
-                futureWeatherIcons.push("../assets/icons/sleet.svg");
+                futureWeatherIcons.push("./assets/icons/sleet.svg");
             }
 
         });
