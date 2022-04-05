@@ -248,9 +248,9 @@ document.addEventListener('DOMContentLoaded', event => {
                     </div>
         
                     <ul class="weather__details">
-                        <li><img src="../assets/icons/pressure.svg"/> <span class="pressure__value">${currentPressure}</span></li>
-                        <li><img src="../assets/icons/humidity.svg"/> <span class="humidity__value">${currentHumidity}</span></li>
-                        <li><img src="../assets/icons/wind-speed.svg"/> <span class="wind-speed__value">${currentWindSpeed}</span></li>
+                        <li><img src="./assets/icons/pressure.svg"/> <span class="pressure__value">${currentPressure}</span></li>
+                        <li><img src="./assets/icons/humidity.svg"/> <span class="humidity__value">${currentHumidity}</span></li>
+                        <li><img src="./assets/icons/wind-speed.svg"/> <span class="wind-speed__value">${currentWindSpeed}</span></li>
                     </ul>
         
                     <ul class="weather__forecast">
@@ -270,12 +270,12 @@ document.addEventListener('DOMContentLoaded', event => {
                             </li>
         
                         <li>
-                            <span class="day">Not available</span> <img src="../assets/icons/clear-day.svg"/>
+                            <span class="day">Not available</span> <img src="./assets/icons/clear-day.svg"/>
                             <span class="temperature"><span class="temperature__value">0</span>&deg;C</span>
                         </li>
         
                         <li>
-                            <span class="day">Not available</span> <img src="../assets/icons/clear-day.svg"/>
+                            <span class="day">Not available</span> <img src="./assets/icons/clear-day.svg"/>
                             <span class="temperature"><span class="temperature__value">0</span>&deg;C</span>
                         </li>
                     </ul>
