@@ -35,16 +35,15 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-A JS application that fetches information from an API about current weather conditions, as well as weather conditions in the following days. I used a free api version that allows to retrieve information only for the current day and the next two, in which case I couldn't fetch data about the whole week.  
-That's why you will see "Not available" instead of the last four days, but the app can be upgraded easily if you have access to a key that allows that.  
-If you wan't to upgrade the application and don't know how, please <a href="#contact">contact</a> me.
+A JS application that fetches information from an API about current weather conditions, as well as weather conditions in the following days.   
+I used a free api version that allows to retrieve information only for the current day and the next two upcoming, in which case I couldn't fetch data about the whole week, but the app can be easily upgraded if you have access to a key that allows that.  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Key Functionalities
 <ul>
-  <li>Landing page displays information about the weather condition in your current location (based on your IP)</li>
+  <li>Landing page displays information about the weather condition in your current location (based on IP)</li>
   <li>Search for any city in the world easily</li>
   <li>App displays information about: </li>
   <ul>
@@ -101,6 +100,6 @@ To get a local copy up and running follow these simple steps
 ## Contact
 Ioannis Kolokotronis - ioanniskolokotronis1@gmail.com
 
-Project Link: [https://github.com/ikolokotronis/WeatherApp](https://github.com/ikolokotronis/WeatherApp)
+Project Link: [https://github.com/ikolokotronis/WeatherApp](https://github.com/ikolokotronis/weatherApp)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
