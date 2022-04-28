@@ -36,7 +36,7 @@
 ## About The Project
 
 A JS application that fetches information from a weather API  about current and future weather conditions.   
-I used a free api version coming some limitations in which case I couldn't fetch data for more than a couple days, but the app can be easily upgraded if you have access to a key that allows that.  
+I used a free api version coming with some limitations in which case I couldn't fetch data for more than a couple days, but the app can be easily upgraded if you have access to a key that allows that.  
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
