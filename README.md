@@ -77,9 +77,9 @@ To get a local copy up and running follow these simple steps
    ```sh
    git clone https://github.com/ikolokotronis/WeatherApp.git
    ```
-3. Enter your API in the first line of `app.js`
+3. Enter your API key in the first line of `app.js`
    ```js
-   const apiKey = 'ENTER YOUR API';
+   const apiKey = 'ENTER YOUR API KEY';
    ```
 4. Open index.html in your browser
 
