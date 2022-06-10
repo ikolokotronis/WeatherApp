@@ -36,11 +36,7 @@
 ## About The Project
 
 A JS application that fetches information from a weather API  about current and future weather conditions.   
-  
-  
 
-#### Note
-I used a free api version coming with some limitations in which case I couldn't fetch data for more than a couple days, but the app can be easily upgraded with a key from [weather api](https://www.weatherapi.com/) that allows that.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -90,14 +86,8 @@ To get a local copy up and running follow these simple steps
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Add hourly forecast
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
+## Note
+I used a free api version coming with some limitations in which case I couldn't fetch data for more than a couple days, but the app can be easily upgraded with a key from [weather api](https://www.weatherapi.com/) that allows that.
 
 <!-- CONTACT -->
 
