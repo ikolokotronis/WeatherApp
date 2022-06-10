@@ -25,7 +25,6 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -36,9 +35,6 @@
 ## About The Project
 
 A JS application that fetches information from a weather API  about current and future weather conditions.   
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Key Functionalities
@@ -58,8 +54,6 @@ A JS application that fetches information from a weather API  about current and 
 ## Demo
 
 ![App gif demo](gifs/Demo.gif)
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Screenshot
 
@@ -82,8 +76,6 @@ To get a local copy up and running follow these simple steps
    const apiKey = 'ENTER YOUR API KEY';
    ```
 4. Open index.html in your browser
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 
 ## Note
