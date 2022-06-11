@@ -37,7 +37,7 @@
 A JS application that fetches information from a weather API  about current and future weather conditions.   
 
 
-## Key Functionalities
+### Key Functionalities
 <ul>
   <li>Landing page displays information about the weather condition in your current location (based on IP)</li>
   <li>Search for any city in the world easily</li>
